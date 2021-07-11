@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+class node{
+    public:
+    int val;
+    node *next;
+    node(int a){
+        val = a;
+        next = NULL;
+    }
+};
+class LinkedList{
+    private:
+    node *head = NULL,*tail = NULL;
+    int size = 0;
+    public:
+    void addNodeAtLast(int val){
+        if(head == NULL){
+            head = new node(val);
+            tail = head;
+        }
+        else {
+            tail->next = new node(val);
+            tail = tail->next;
+        }
+        size++;
+    }
+    void addNodeAtPos(int val , int pos){
+        if(pos <= 0){
+            cout<<"position not available\n";
+            return;
+        }
+        if(pos > size){
+            cout<<"Adding node at last position\n";
+            addNodeAtLast(val);
+            return;
+        }
+        node *temp = head;
+        if(pos == 1){
+            temp = new node(val);
+            temp->next = head;
+            head = temp;
+        }
+        else{
+            int count  = 0;
+            while(count != pos-1){
+                temp = temp->next;
+                count++;
+            }
+            node *nbr = temp->next;
+            node *newNode = new node(val);
+            temp->next = newNode;
+            newNode->next = nbr;
+        }
+        size++;
+    }
+    void removeLastNode(){
+        node* temp = head;
+        while(temp->next != tail){
+            temp = temp->next;
+        }
+        delete tail;
+        temp->next = NULL;
+        size--;
+    }
+    int getsize(){
+        return size;
+    }
+    void display(){
+        if(head == NULL){
+            cout<<"Linked List is Empty\n";
+            return;
+        }
+        node *temp = head;
+        while(temp->next != NULL){
+            cout<<temp->val<<"->";
+            temp = temp->next;
+        }
+        cout<<temp->val<<"\n";
+    }
+};
+int main(){
+    LinkedList l1;
+    l1.addNodeAtLast(5);
+    l1.addNodeAtLast(6);
+    l1.addNodeAtLast(2);
+    l1.display();
+    l1.addNodeAtPos(21 , 2);
+    l1.addNodeAtPos(13 , 6);
+    l1.removeLastNode();
+    l1.display();
+}
