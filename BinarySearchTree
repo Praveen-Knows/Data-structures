@@ -1,0 +1,60 @@
+#include<iostream>
+using namespace std;
+class treeNode{
+    public:
+    int val;
+    treeNode *left , *right;
+    treeNode(int data){
+        val = data;
+    }
+};
+class BST{
+    private:
+    treeNode* root = NULL;
+    void displayUtil(treeNode *head){
+        if(head != NULL){
+            displayUtil(head->left);
+            cout<<head->val<<"\t";
+            displayUtil(head->right);
+        }
+    }
+    void addNodeUtil(treeNode *head , int val){
+        if(val <= head->val){
+            if(head->left == NULL){
+                head->left = new treeNode(val);
+            }
+            else{
+                addNodeUtil(head->left , val);
+            }
+        }
+        else{
+            if(head->right == NULL){
+                head->right = new treeNode(val);
+            }
+            else {
+                addNodeUtil(head->right , val);
+            }
+        }
+    }
+    public:
+    void addNode(int val){
+        if(root == NULL){
+            root = new treeNode(val);
+        }
+        else addNodeUtil(root , val);
+    }
+    void display(){
+        displayUtil(root);
+    }
+};
+int main(){
+    BST tree;
+    tree.addNode(5);
+    tree.addNode(3);
+    tree.addNode(4);
+    tree.addNode(7);
+    tree.addNode(6);
+    tree.addNode(2);
+    tree.addNode(8);
+    tree.display();
+}
