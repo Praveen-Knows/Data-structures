@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+
+class Stack{
+	ArrayList<Integer>arr = new ArrayList<>();
+	void push(int val) {
+		arr.add(val);
+	}
+	int pop() {
+		if(arr.size() == 0) {
+			System.out.println("Stack UnderFlow");
+			return -1;
+		}
+		int val = arr.get(arr.size()-1);
+		arr.remove(arr.size()-1);
+		return val;
+	}
+	int top() {
+		return arr.get(arr.size()-1);
+	}
+}
+public class StackImplementation {
+
+	public static void main(String[] args) {
+		Stack st = new Stack();
+		st.push(3);
+		st.push(34);
+		System.out.println(st.top());
+		st.pop();
+		System.out.println(st.top());
+	}
+
+}
